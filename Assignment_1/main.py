@@ -10,12 +10,32 @@ from pybricks.robotics import DriveBase
 
 # Write your program here
 
-wheel radius = 2.8
-
 brick.sound.beep()
 
+# Global Variables for Jarvis
+wheel_radius = 3 / 100
 motor = Motor(Port.A)
 
-motor.run_target(500,90)
 
 # My first project yay!!!!!!!!!!!!!
+
+def move(cm, time):
+    velocity = cm / time
+    angular_velocity = velocity / wheel_radius
+
+    print("Velocity: " + str(velocity))
+    print("Angular Velocity: "+ str(angular_velocity))
+    print("Cenitmeters: " + str(angular_velocity*wheel_radius*time*1000))
+
+    motor.run_time(angular_velocity,time*1000, Stop.BRAKE) # time is references in milliseconds 
+
+    # This currently is not accurate becuase the motor must accelerate to the angular velocity
+    # but the function claims to deselerate at the correct time to reach stand still 
+    # at specified time
+
+
+
+
+# Movement Code
+
+move(10,5)
