@@ -14,20 +14,28 @@ brick.sound.beep()
 
 # Global Variables for Jarvis
 wheel_radius = 3 / 100
+max_speed = 300
+max_acceleration = 400
+
 motor = Motor(Port.A)
 
+# set max speed and max acceleration for motor for all motor calls
+motor.set_run_settings(max_speed, max_acceleration)
 
 # My first project yay!!!!!!!!!!!!!
 
-def move(cm, time):
-    velocity = cm / time
+def move(cm, velocity):
+    
     angular_velocity = velocity / wheel_radius
+    time = velocity / cm
+    acceleration_time = max_acceleration / velocity
+
 
     print("Velocity: " + str(velocity))
     print("Angular Velocity: "+ str(angular_velocity))
-    print("Cenitmeters: " + str(angular_velocity*wheel_radius*time*1000))
+    print("Cenitmeters: " + str(angular_velocity*wheel_radius*time))
 
-    motor.run_time(angular_velocity,time*1000, Stop.BRAKE) # time is references in milliseconds 
+    motor.run_time(angular_velocity,(time- acceleration_time)*1000) # time is references in milliseconds 
 
     # This currently is not accurate becuase the motor must accelerate to the angular velocity
     # but the function claims to deselerate at the correct time to reach stand still 
@@ -38,4 +46,4 @@ def move(cm, time):
 
 # Movement Code
 
-move(10,5)
+move(20,5)
