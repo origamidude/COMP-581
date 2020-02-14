@@ -13,9 +13,13 @@ from pybricks.robotics import DriveBase
 brick.sound.beep()
 
 # Global Variables for Jarvis
-wheel_radius = 3 / 100
+
+pi = 3.141592653589793238462643383279502884197169399375105820974944592307816406286 
+radius = 2.8 / 100
+diameter = 2 * pi * radius 
 max_speed = 300
-max_acceleration = 400
+max_acceleration = 500
+
 
 motor = Motor(Port.A)
 
@@ -24,26 +28,14 @@ motor.set_run_settings(max_speed, max_acceleration)
 
 # My first project yay!!!!!!!!!!!!!
 
-def move(cm, velocity):
-    
-    angular_velocity = velocity / wheel_radius
-    time = velocity / cm
-    acceleration_time = max_acceleration / velocity
+def move(distance, velocity):
+    angle = distance * 360 /diameter
+    angular_velocity = velocity / radius 
+    motor.run_target(angular_velocity, angle) # time is references in milliseconds 
 
-
-    print("Velocity: " + str(velocity))
-    print("Angular Velocity: "+ str(angular_velocity))
-    print("Cenitmeters: " + str(angular_velocity*wheel_radius*time))
-
-    motor.run_time(angular_velocity,(time- acceleration_time)*1000) # time is references in milliseconds 
-
-    # This currently is not accurate becuase the motor must accelerate to the angular velocity
-    # but the function claims to deselerate at the correct time to reach stand still 
-    # at specified time
-
-
+    # 
 
 
 # Movement Code
 
-move(20,5)
+move(0.3 0,10)
